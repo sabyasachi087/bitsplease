@@ -12,11 +12,14 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
-			<value>/ui-shit/</value>
+			<value>/ui/</value>
 		</property>
 	</bean>
 
-	<mvc:resources mapping="/ui/**" location="/ui-shit/"
-		cache-period="31556926" />
+	<mvc:resources mapping="/ui/**" location="/ui-shit/" />
+	<mvc:resources mapping="/js/**" location="/ui-shit/js/" />
+	<mvc:resources mapping="/css/**" location="/ui-shit/css/" />
+	<mvc:resources mapping="/img/**" location="/ui-shit/img/" />
+	<mvc:resources mapping="/vendor/**" location="/ui-shit/vendor/" />
 
 </beans>
