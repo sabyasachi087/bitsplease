@@ -65,6 +65,12 @@
 			<version>3.3.7</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.ibm.watson.developer_cloud</groupId>
+			<artifactId>text-to-speech</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
 
 	</dependencies>
 
