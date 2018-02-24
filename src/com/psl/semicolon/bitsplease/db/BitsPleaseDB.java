@@ -1,27 +1,40 @@
 package com.psl.semicolon.bitsplease.db;
 
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
-import com.opencsv.CSVReader;
+import org.springframework.stereotype.Component;
 
-public class BitsPleaseDB {
+@Component("bitsPleaseDB")
+public class BitsPleaseDB implements Closeable {
 
 	private static final String PERSISTENT_FILE = "BITS_PLEASE_DB_DUMP.db";
-	private static final Map<Long, String> INTERNAL_DB = new HashMap<>();
+	private static final Map<String, Long> INTERNAL_DB = new HashMap<>();
+	private final AtomicLong IDX;
 
-	private void loadDB() {
+	private final BitsPleaseFileIO fileIO;
 
-		try (Reader reader = Files.newBufferedReader(Paths.get(PERSISTENT_FILE));
-				CSVReader csvReader = new CSVReader(reader)) {
+	public BitsPleaseDB() {
+		this.fileIO = new BitsPleaseFileIO(PERSISTENT_FILE, INTERNAL_DB);
+		this.IDX = new AtomicLong(this.fileIO.getIdx());
+	}
 
-		} catch (Exception ex) {
-
+	public Long findIndex(String text) {
+		Long id = INTERNAL_DB.get(text);
+		if (id == null) {
+			id = this.IDX.incrementAndGet();
+			this.fileIO.write(id, text);
+			INTERNAL_DB.put(text, id);
 		}
+		return id;
+	}
 
+	@Override
+	public void close() throws IOException {
+		this.fileIO.close();
 	}
 
 }

@@ -9,7 +9,7 @@
 	<context:annotation-config />
 	<mvc:annotation-driven />
 
-
+	<context:property-placeholder location="classpath:bitsplease.properties" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -28,4 +28,4 @@
 
 
 
-</beans>
+</beans> 
