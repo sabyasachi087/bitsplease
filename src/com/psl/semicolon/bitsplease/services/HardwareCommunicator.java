@@ -34,6 +34,16 @@ public class HardwareCommunicator implements Closeable {
 		}
 	}
 
+	public void send(String data) {
+		try (DataOutputStream dout = new DataOutputStream(this.socket.getOutputStream())) {
+			dout.write(data.getBytes());
+			dout.flush();
+			dout.close();
+		} catch (Exception ex) {
+			LOGGER.error(ex);
+		}
+	}
+
 	@Override
 	public void close() throws IOException {
 		this.socket.close();

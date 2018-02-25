@@ -39,31 +39,48 @@ $(document).ready(function() {
 			url : "./train",
 			type : 'PUT',
 			cache : false,
+			data : text,
 			success : function(text) {
 				if (text.length == "ok") {
-					 modal.style.display = "block";
+					modal.style.display = "block";
 				}
 			}
 		});
 	}
 	
-	//Toggle switch
-    $('input[type="checkbox"]').click(function(){
-    	var text = $("#input_label").val();
-    	if ($(this).is(':checked')){
-    	   console.log("Checked!!");
-    	   console.log(text);
-    	   trainText(text);
-    	}
-    	else{
-    		console.log(text);
-     	   	trainText(text);
-    	}
-      });
-    
-    $("input[type='reset']").click(function(){
-    	$("#input_label").val('');
-    	console.log("Value set to null");
-    });
+	var tryIt = function() {
+		$.ajax({
+			url : "./tryit",
+			type : 'GET',
+			cache : false,
+			success : function(text) {
+				if (text.length == "ok") {
+					modal.style.display = "block";
+				}
+			}
+		});
+	} 
+
+	// Toggle switch
+	$('input[type="checkbox"]').click(function() {
+		var text = $("#input_label").val();
+		if ($(this).is(':checked')) {
+			console.log("Checked!!");
+			console.log(text);
+			trainText(text);
+		} else {
+			console.log(text);
+			trainText(text);
+		}
+	});
+
+	$("input[type='reset']").click(function() {
+		$("#input_label").val('');
+		console.log("Value set to null");
+	});
+	
+	$("#try_it").click(function(){
+		tryIt();
+	})
 
 });

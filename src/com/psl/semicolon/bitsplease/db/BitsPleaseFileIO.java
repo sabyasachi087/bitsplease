@@ -41,10 +41,15 @@ public class BitsPleaseFileIO implements Closeable {
 	}
 
 	public void write(Long id, String data) {
-		String[] nextLine = { id.toString(), data };
-		this.csvWriter.writeNext(nextLine);
-		if (id > lastIdx) {
-			this.lastIdx++;
+		try {
+			String[] nextLine = { id.toString(), data };
+			this.csvWriter.writeNext(nextLine);
+			if (id > lastIdx) {
+				this.lastIdx++;
+			}
+			this.csvWriter.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

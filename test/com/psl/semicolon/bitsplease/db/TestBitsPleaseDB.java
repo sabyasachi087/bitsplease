@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class TestBitsPleaseDB {
 
-	private String[] text = { "sabya", "sachi", "is", "a", "sachi", "hello", "sabya", "kaka" };
+	private String[] text = { "hello", "sachi", "is", "a", "sachi", "hello", "dada", "kaka" };
 	private String[] newText = { "abhi", "shek", "is", "a", "good", "hello", "daddy" };
 
 	@Before
@@ -16,7 +16,7 @@ public class TestBitsPleaseDB {
 	@Test
 	public void test() {
 
-		try (BitsPleaseDB db = new BitsPleaseDB()) {
+		try (BitsPleaseDB db = new BitsPleaseDB("/home/user/Documents/sabya")) {
 			for (String str : text) {
 				System.out.println(str + " : " + db.findIndex(str));
 			}
